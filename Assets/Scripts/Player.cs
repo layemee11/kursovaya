@@ -5,7 +5,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public int level = 1;
-    public int health = 3;
+    public float health;
     public void SavePlayer() 
     {
         SaveSystem.SavePlayer(this);

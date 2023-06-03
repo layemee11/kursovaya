@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlayerData
 {
     public int level;
-    public int health;
+    public float health;
     public float[] position;
 
     public PlayerData(Player player)
