@@ -19,7 +19,7 @@ public class PlayerAttack : MonoBehaviour
         {
             if (Input.GetMouseButton(0))
             {
-                anim.SetTrigger("attack");
+                anim.SetBool("attack", true);
                 Collider2D[] enemies = Physics2D.OverlapCircleAll(attackPos.position, attackRange, enemy);
                 for (int i = 0; i < enemies.Length; i++)
                 {
@@ -30,6 +30,7 @@ public class PlayerAttack : MonoBehaviour
         }
         else
         {
+            anim.SetBool("attack", false);
             timeBtwAttack -= Time.deltaTime;
         }
     }
