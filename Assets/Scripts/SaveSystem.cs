@@ -6,7 +6,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 public class SaveSystem
 {
-    public static void SavePlayer(Player player)
+    /*public static void SavePlayer(Player player)
     {
         BinaryFormatter formatter = new BinaryFormatter();
         string path = Application.persistentDataPath + "/player.save";
@@ -38,5 +38,5 @@ public class SaveSystem
             return null;
 
         }
-    }
+    }*/
 }

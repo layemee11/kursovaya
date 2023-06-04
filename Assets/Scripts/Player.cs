@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public int level = 1;
+    public float health;
+    /*public int level = 1;
     public float health;
     public void SavePlayer() 
     {
@@ -25,5 +26,5 @@ public class Player : MonoBehaviour
         position.z = data.position[2];
         transform.position = position;
 
-    }
+    }*/
 }

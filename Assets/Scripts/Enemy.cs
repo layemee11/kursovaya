@@ -4,47 +4,106 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    private float timeBtwAttack;
+    public float startTimeBtwAttack;
+
     private Rigidbody2D physic;
-    public Transform player;
-    public float health;
+    public int health;
     public float speed;
     public float agroDistance;
-    void Start () 
-    {
-        physic = GetComponent<Rigidbody2D>();
-    }
-    void Update ()
-    {
-        float distToPlayer = Vector2.Distance(transform.position, player.position);
+    public int damage;
+    public float stopTime;
+    public float startStopTime;
+    public float normalSpeed;
+    private Transform player;
+    private Animator anim;
+    private PlayerController playerController;
 
-        if (distToPlayer < agroDistance) 
+    void Start()
+    {
+        anim = GetComponent<Animator>();
+        playerController = FindObjectOfType<PlayerController>();
+        physic = GetComponent<Rigidbody2D>();
+        normalSpeed = speed;
+        player = playerController.transform;
+    }
+
+    void Update()
+    {
+        if (stopTime <= 0)
         {
-            StartHunting();
+            speed = normalSpeed;
         }
         else
         {
-            StopHunting();
+            speed = 0;
+            stopTime -= Time.deltaTime;
+        }
+        if (health <= 0)
+        {
+            Destroy(gameObject);
+        }
+        if (playerController != null)
+        {
+            float distToPlayer = Vector2.Distance(transform.position, player.position);
+
+            if (distToPlayer < agroDistance)
+            {
+                StartHunting();
+            }
+            else
+            {
+                StopHunting();
+            }
         }
     }
+
     void StartHunting()
     {
-        if(player.position.x < transform.position.x)
+        if (player.position.x < transform.position.x)
         {
             physic.velocity = new Vector2(-speed, 0);
             transform.localScale = new Vector2(-2, 2);
         }
-        else if(player.position.x > transform.position.x)
+        else if (player.position.x > transform.position.x)
         {
             physic.velocity = new Vector2(speed, 0);
             transform.localScale = new Vector2(2, 2);
         }
     }
+
     void StopHunting()
     {
-        physic.velocity = new Vector2(0, 0);
+        physic.velocity = Vector2.zero;
     }
+
     public void TakeDamage(int damage)
     {
         health -= damage;
+    }
+
+    public void OnTriggerStay2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            if (timeBtwAttack <= 0)
+            {
+                anim.SetTrigger("attackenemy");
+            }
+            else
+            {
+                timeBtwAttack -= Time.deltaTime;
+            }
+        }
+    }
+
+    public void OnEnemyAttack()
+    {
+        PlayerController playerController = player.GetComponent<PlayerController>();
+        if (playerController != null)
+        {
+            playerController.TakeDamage(damage);
+            timeBtwAttack = startTimeBtwAttack;
+        }
     }
 }
