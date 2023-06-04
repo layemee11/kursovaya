@@ -8,7 +8,7 @@ public class DialogManager1 : MonoBehaviour
 {
     public Text dialogText1;
     public Text nameText1;
-    public GameObject LevelChanger;
+    //public GameObject LevelChanger;
     public Animator boxAnim1;
     public Animator startAnim1;
 
@@ -55,7 +55,7 @@ public class DialogManager1 : MonoBehaviour
     public void EndDialog()
     {
         boxAnim1.SetBool("boxOpen2", false);
-        LevelChanger.GetComponent<LevelChanger>().FadeToLevel();
-        //SceneManager.LoadScene("Level 2");
+        //LevelChanger.GetComponent<LevelChanger>().FadeToLevel();
+        SceneManager.LoadScene("Level 2");
     }
 }
